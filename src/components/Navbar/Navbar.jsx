@@ -5,8 +5,8 @@ import logo from "../../assets/BloodBase.png";
 const Navbar = () => {
 
     const links = <>
-        <NavLink to='/'><a>Home</a></NavLink>
-        <NavLink to='/upcoming-events'><a>Upcoming Events</a></NavLink>
+        <li><NavLink to='/'>Home</NavLink></li>
+        <li><NavLink to='/upcoming-events'>Upcoming Events</NavLink></li>
     </>
 
     return (
