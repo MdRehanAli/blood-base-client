@@ -1,5 +1,8 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+@plugin "daisyui" {
+  themes: light --default;
+}
 
 @plugin "daisyui/theme" {
   name: "light";
@@ -9,7 +12,7 @@
 }
 
 .btn-primary {
-  @apply bg-gradient-to-r from-[#ff0000] to-[#9b0000] border-none text-white
+  @apply bg-gradient-to-r from-[#9b0000] to-[#ff0000] border-none text-white
 }
 
 .btn-primary:hover {
