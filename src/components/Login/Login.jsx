@@ -25,7 +25,7 @@ const Login = () => {
                     </form>
                     <button className='btn btn-outline w-full hover:text-white hover:btn-primary'><FcGoogle className='text-2xl'></FcGoogle> Login with Google</button>
 
-                    <p className='mt-2 text-center'>New to our Website? Please <Link className='underline text-primary font-bold' to="/signup">SignUp</Link> </p>
+                    <p className='mt-2 text-center'>New to our Website? Please <Link className='underline text-primary font-bold' to="/register">Register</Link> </p>
                 </div>
             </div>
         </div>
