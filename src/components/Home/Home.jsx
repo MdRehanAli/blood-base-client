@@ -2,6 +2,7 @@ import React from 'react';
 import Banner from '../Banner/Banner';
 import Features from '../Features/Features';
 import Gallery from '../Gallery/Gallery';
+import Newsletter from '../Newsletter/Newsletter';
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             <main className='mb-20 mt-5 lg:mt-10'>
                 <Features></Features>
                 <Gallery></Gallery>
+                <Newsletter></Newsletter>
             </main>
         </div>
     );
