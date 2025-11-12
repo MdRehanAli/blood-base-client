@@ -1,5 +1,6 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
+import Features from '../Features/Features';
 
 const Home = () => {
     return (
@@ -7,8 +8,8 @@ const Home = () => {
             <section className='mb-20 mt-5 lg:mt-10'>
                 <Banner></Banner>
             </section>
-            <main>
-
+            <main className='mb-20 mt-5 lg:mt-10'>
+                <Features></Features>
             </main>
         </div>
     );
