@@ -2,6 +2,8 @@ import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import logo from "../../assets/BloodBase.png";
 import { AuthContext } from '../../contexts/AuthContext';
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
 
@@ -10,10 +12,17 @@ const Navbar = () => {
     const handleLogout = () => {
         logOut()
             .then(() => {
-                console.log("Logout SuccessFully")
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Log Out Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
             })
             .catch(error => {
-                console.log(error.message);
+                toast.error(error.message);
             })
     }
 

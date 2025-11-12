@@ -1,11 +1,16 @@
 import React, { use } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router';
+import { data, Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../contexts/AuthContext';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const Login = () => {
 
     const { signIn, googleSignIn, } = use(AuthContext);
+
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -17,11 +22,22 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log("Login successfully", user)
+                console.log(user);
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                form.reset();
+                navigate(`${location.state ? location.state : "/"}`);
 
             })
             .catch(error => {
-                console.log(error.message);
+                toast.error(error.message);
             })
 
     }
@@ -31,9 +47,40 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
 
+                const user = result.user
+
+                const newUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                }
+
+                // Create user in the Database 
+                fetch('http://localhost:5000/users', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("After Saving", data)
+                    })
+
+                navigate(location.state || '/')
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
             })
             .catch(error => {
-                console.log(error.message);
+                toast.error(error.message);
             })
     }
 

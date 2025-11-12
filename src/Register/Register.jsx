@@ -1,10 +1,15 @@
 import React, { use } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext';
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const Register = () => {
 
     const { createUser } = use(AuthContext)
+
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleRegister = (event) => {
         event.preventDefault();
@@ -18,7 +23,22 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 const user = result.user;
-                console.log("User Login Success", user)
+                console.log(user);
+
+                navigate(location.state || '/');
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                form.reset();
+            })
+            .catch(error => {
+                toast.error(error.message);
             })
 
     }
