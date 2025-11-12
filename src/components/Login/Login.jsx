@@ -1,6 +1,6 @@
 import React, { use } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { data, Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
@@ -47,12 +47,10 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
 
-                const user = result.user
-
                 const newUser = {
-                    name: user.displayName,
-                    email: user.email,
-                    photo: user.photoURL,
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    photo: result.user.photoURL,
                 }
 
                 // Create user in the Database 

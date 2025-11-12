@@ -25,6 +25,25 @@ const Register = () => {
                 const user = result.user;
                 console.log(user);
 
+                const newUser = {
+                    name: user.name,
+                    email: user.email,
+                    photo: user.photo,
+                }
+
+                // Create user in the Database 
+                fetch('http://localhost:5000/users', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log("After Saving", data)
+                    })
+
                 navigate(location.state || '/');
 
                 Swal.fire({
