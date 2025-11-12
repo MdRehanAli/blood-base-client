@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import logo from "../../assets/BloodBase.png";
+import { AuthContext } from '../../contexts/AuthContext';
 
 const Navbar = () => {
+
+    const { user, logOut } = use(AuthContext);
+
+    const handleLogout = () => {
+        logOut()
+            .then(() => {
+                console.log("Logout SuccessFully")
+            })
+            .catch(error => {
+                console.log(error.message);
+            })
+    }
 
     const links = <>
         <li><NavLink to='/'>Home</NavLink></li>
@@ -29,10 +42,17 @@ const Navbar = () => {
                     {links}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <Link to='/login' className="btn btn-primary">Login</Link>
-                <Link to='/register' className="btn btn-primary">Register</Link>
-            </div>
+            {
+                user ?
+                    (<div className='navbar-end'>
+                        <button onClick={handleLogout}>Sign Out</button>
+                    </div>)
+                    :
+                    (<div className='navbar-end'>
+                        <NavLink to='/login' className="btn btn-primary">Login</NavLink>
+                        <NavLink to='/register' className="btn btn-primary">Register</NavLink>
+                    </div>)
+            }
         </div>
     );
 };
