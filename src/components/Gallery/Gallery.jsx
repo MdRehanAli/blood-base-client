@@ -12,14 +12,13 @@ const Gallery = () => {
             <h1 className='text-center text-5xl font-bold text-red-600'>Gallery</h1>
             <p className='my-5 text-red-400 text-center'>Explore recent blood donation events</p>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-16'>
-                <div className='border border-red-600 p-10 rounded-2xl hover:bg-red-100 transform duration-200'>
-                    <img className='mx-auto ' src={img1} alt="Event Image" />
-                    <img className='mx-auto ' src={img2} alt="Event Image" />
-                    <img className='mx-auto ' src={img3} alt="Event Image" />
-                    <img className='mx-auto ' src={img4} alt="Event Image" />
-                    <img className='mx-auto ' src={img5} alt="Event Image" />
-                    <img className='mx-auto ' src={img6} alt="Event Image" />
-                </div>
+                <img className='mx-auto rounded-xl hover:scale-110 hover:opacity-70 ease-in-out duration-200' src={img1} alt="Event Image" />
+                <img className='mx-auto rounded-xl hover:scale-110 hover:opacity-70 ease-in-out duration-200' src={img2} alt="Event Image" />
+                <img className='mx-auto rounded-xl hover:scale-110 hover:opacity-70 ease-in-out duration-200' src={img3} alt="Event Image" />
+                <img className='mx-auto rounded-xl hover:scale-110 hover:opacity-70 ease-in-out duration-200' src={img4} alt="Event Image" />
+                <img className='mx-auto rounded-xl hover:scale-110 hover:opacity-70 ease-in-out duration-200' src={img5} alt="Event Image" />
+                <img className='mx-auto rounded-xl hover:scale-110 hover:opacity-70 ease-in-out duration-200' src={img6} alt="Event Image" />
+
             </div>
         </div>
     );
