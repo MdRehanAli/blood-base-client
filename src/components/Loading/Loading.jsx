@@ -1,9 +1,10 @@
 import React from "react";
+import { PacmanLoader } from "react-spinners";
 
 const Loading = () => {
     return (
         <div className="min-h-screen flex  justify-center items-center">
-            <span className="loading loading-bars loading-xl"></span>
+            <PacmanLoader color={'red'}></PacmanLoader>
         </div>
     );
 };

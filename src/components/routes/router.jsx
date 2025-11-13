@@ -9,11 +9,13 @@ import CreateEvent from "../CreateEvent/CreateEvent";
 import ManageEvents from "../ManageEvents/ManageEvents";
 import JoinedEvents from "../JoinedEvents/JoinedEvents";
 import EventDetails from "../EventDetails/EventDetails";
+import Loading from "../Loading/Loading";
 
 const router = createBrowserRouter([
     {
         path: '/',
         Component: RootLayout,
+        hydrateFallbackElement: <Loading></Loading>,
         children: [
             {
                 index: true,

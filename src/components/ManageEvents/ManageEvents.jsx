@@ -4,6 +4,9 @@ import { AuthContext } from "../../contexts/AuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
+import { FaLocationDot } from "react-icons/fa6";
+import { VscCalendar } from "react-icons/vsc";
+import { BiCategory } from "react-icons/bi";
 
 const ManageEvents = () => {
     const { user } = use(AuthContext);
@@ -13,9 +16,13 @@ const ManageEvents = () => {
     // Fetch events created by the logged-in user
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/events?createdBy=${user.email}`)
+            fetch(`http://localhost:5000/join-event?createdBy=${user.email}`)
                 .then(res => res.json())
-                .then(data => setMyEvents(data));
+                .then(data => {
+                    setMyEvents(data);
+
+
+                });
         }
     }, [user]);
 
@@ -42,7 +49,7 @@ const ManageEvents = () => {
             eventDate: eventDate
         };
 
-        fetch(`http://localhost:5000/events/${editingEvent._id}`, {
+        fetch(`http://localhost:5000/join-event/${editingEvent._id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedEvent),
@@ -57,7 +64,7 @@ const ManageEvents = () => {
                 });
                 setEditingEvent(null);
                 // Refresh events
-                fetch(`http://localhost:5000/events?createdBy=${user.email}`)
+                fetch(`http://localhost:5000/join-event?createdBy=${user.email}`)
                     .then(res => res.json())
                     .then(data => setMyEvents(data));
             });
@@ -74,10 +81,16 @@ const ManageEvents = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/events/${id}`, { method: "DELETE" })
+                fetch(`http://localhost:5000/join-event/${id}`, {
+                    method: "DELETE"
+                })
                     .then(res => res.json())
                     .then(() => {
-                        Swal.fire("Deleted!", "Your event has been deleted.", "success");
+                        Swal.fire(
+                            "Deleted!",
+                            "Your event has been deleted.",
+                            "success"
+                        );
                         setMyEvents(myEvents.filter(ev => ev._id !== id));
                     });
             }
@@ -85,45 +98,48 @@ const ManageEvents = () => {
     };
 
     return (
-        <div className="container mx-auto p-6">
-            <h2 className="text-3xl font-bold text-center text-primary mb-6">
-                Manage My Blood Donation Events
-            </h2>
+        <div className="max-w-7xl mx-auto w-11/12 my-10 lg:my-20">
+            <h1 className='text-center text-3xl md:text-5xl font-bold text-red-600'>Manage Events</h1>
+            <p className='my-5 text-red-400 text-center'>Keep your events organized to make a bigger impact</p>
 
             {/* If no events */}
             {myEvents.length === 0 ? (
                 <p className="text-center text-gray-500">You haven’t created any events yet.</p>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-10">
                     {myEvents.map(event => (
                         <div
                             key={event._id}
-                            className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                            className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition h-full"
                         >
-                            <img
-                                src={event.thumbnail}
-                                alt={event.title}
-                                className="w-full h-40 object-cover"
-                            />
+                            <img src={event.thumbnail} alt={event.title} className="" />
                             <div className="p-4">
-                                <h3 className="text-xl font-semibold text-red-600 mb-2">
-                                    {event.title}
-                                </h3>
-                                <p className="text-gray-600 mb-1">📅 {new Date(event.eventDate).toDateString()}</p>
-                                <p className="text-gray-600 mb-1">📍 {event.location}</p>
-                                <p className="text-gray-600 mb-3">🏷️ {event.type}</p>
+                                <h3 className="text-xl font-bold text-primary text-center my-4">{event.eventTitle}</h3>
 
-                                <div className="flex justify-between">
+                                <div className='flex items-center gap-3'>
+                                    <FaLocationDot />
+                                    <p className="text-gray-600">{event.location}</p>
+                                </div>
+                                <div className='flex items-center gap-3'>
+                                    <VscCalendar />
+                                    <p className="text-gray-600 my-3">{new Date(event.eventDate).toDateString()}</p>
+                                </div>
+                                <div className='flex items-center gap-3'>
+                                    <BiCategory />
+                                    <p className="text-gray-600">{event.type}</p>
+                                </div>
+
+                                <div className="flex justify-between mt-4">
                                     <button
                                         onClick={() => setEditingEvent(event)}
-                                        className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700"
+                                        className="btn bg-green-600 text-white"
                                     >
                                         Update
                                     </button>
 
                                     <button
                                         onClick={() => handleDelete(event._id)}
-                                        className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
+                                        className="btn btn-primary"
                                     >
                                         Delete
                                     </button>

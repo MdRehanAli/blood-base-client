@@ -5,6 +5,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { GoTriangleDown } from 'react-icons/go';
+import './Navbar.css'
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 
 const Navbar = () => {
 
@@ -60,6 +62,7 @@ const Navbar = () => {
             {
                 user ?
                     (<div className='navbar-end'>
+                        <ThemeToggle></ThemeToggle>
                         <div className="relative group inline-block">
 
                             <div className="dropdown dropdown-end mr-2">
@@ -73,7 +76,7 @@ const Navbar = () => {
                                     {privateLinks}
                                 </ul>
                             </div>
-                            <span className="absolute bottom-full mb-2 top-3 -left-15 -translate-x-1/2 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                            <span className="absolute bottom-full mb-2 top-9 left-6 -translate-x-1/2 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
                                 {user?.displayName}
                             </span>
                         </div>
@@ -81,6 +84,7 @@ const Navbar = () => {
                     </div>)
                     :
                     (<div className='navbar-end'>
+                        <ThemeToggle></ThemeToggle>
                         <NavLink to='/login' className="btn btn-primary">Login</NavLink>
                         {/* <NavLink to='/register' className="btn btn-primary">Register</NavLink> */}
                     </div>)
