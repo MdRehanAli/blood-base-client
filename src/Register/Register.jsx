@@ -1,8 +1,9 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
 
@@ -11,13 +12,34 @@ const Register = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const [showPassword, setShowPassword] = useState(false)
+
+    const handleShowPassword = (event) => {
+        event.preventDefault();
+        setShowPassword(!showPassword);
+    }
+
     const handleRegister = (event) => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
+        if (name.length < 5) {
+            toast.error("Name should be more then 5 character");
+            return;
+        }
         const email = form.email.value;
         const photo = form.photo.value;
         const password = form.password.value;
+
+        // Validate Password 
+        const validatePassword = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+
+        //  Check if password matches
+        if (!validatePassword.test(password)) {
+            toast.error("Opps! Password must be at least 6 characters long, include at least one uppercase letter, one lowercase letter");
+            return
+        }
+
         console.log(name, email, photo, password);
 
         createUser(email, password)
@@ -26,9 +48,9 @@ const Register = () => {
                 console.log(user);
 
                 const newUser = {
-                    name: user.name,
-                    email: user.email,
-                    photo: user.photo,
+                    name: name,
+                    email: email,
+                    photo: photo,
                 }
 
                 // Create user in the Database 
@@ -71,19 +93,22 @@ const Register = () => {
                         <fieldset className="fieldset">
                             {/* name  */}
                             <label className="label">Name</label>
-                            <input type="text" name='name' className="input" required placeholder="Name" />
+                            <input type="text" name='name' className="input w-full" required placeholder="Name" />
 
                             {/* email  */}
                             <label className="label">Email</label>
-                            <input type="email" name='email' className="input" required placeholder="Email" />
+                            <input type="email" name='email' className="input w-full" required placeholder="Email" />
 
                             {/* photo  */}
                             <label className="label">Photo</label>
-                            <input type="text" name='photo' className="input" required placeholder="Photo" />
+                            <input type="text" name='photo' className="input w-full" required placeholder="Photo" />
 
                             {/* password  */}
                             <label className="label">Password</label>
-                            <input type="password" name='password' className="input" required placeholder="Password" />
+                            <div className='flex items-center relative'>
+                                <input type={showPassword ? "text" : "password"} name='password' className="input w-full" required placeholder="Password" />
+                                <button onClick={handleShowPassword} className='absolute top-2 right-5 text-2xl text-primary'>{showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</button>
+                            </div>
 
                             <button className="btn btn-primary mt-4">Register</button>
                         </fieldset>

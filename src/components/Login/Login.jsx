@@ -1,9 +1,10 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
 
@@ -11,6 +12,13 @@ const Login = () => {
 
     const location = useLocation();
     const navigate = useNavigate();
+
+    const [showPassword, setShowPassword] = useState(false)
+    
+        const handleShowPassword = (event) => {
+            event.preventDefault();
+            setShowPassword(!showPassword);
+        }
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -91,11 +99,14 @@ const Login = () => {
                         <fieldset className="fieldset">
                             {/* email  */}
                             <label className="label">Email</label>
-                            <input type="email" name='email' className="input" required placeholder="Email" />
+                            <input type="email" name='email' className="input w-full" required placeholder="Email" />
 
                             {/* password  */}
                             <label className="label">Password</label>
-                            <input type="password" name='password' className="input" required placeholder="Password" />
+                            <div className='flex items-center relative'>
+                                <input type={showPassword ? "text" : "password"} name='password' className="input w-full" required placeholder="Password" />
+                                <button onClick={handleShowPassword} className='absolute top-2 right-5 text-2xl text-primary'>{showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</button>
+                            </div>
 
                             <div><a className="link link-hover">Forgot password?</a></div>
 
