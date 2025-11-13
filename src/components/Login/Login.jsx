@@ -14,11 +14,11 @@ const Login = () => {
     const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false)
-    
-        const handleShowPassword = (event) => {
-            event.preventDefault();
-            setShowPassword(!showPassword);
-        }
+
+    const handleShowPassword = (event) => {
+        event.preventDefault();
+        setShowPassword(!showPassword);
+    }
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -62,7 +62,7 @@ const Login = () => {
                 }
 
                 // Create user in the Database 
-                fetch('http://localhost:5000/users', {
+                fetch('https://blood-base-server.vercel.app/users', {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json'

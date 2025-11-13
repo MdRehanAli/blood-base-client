@@ -64,7 +64,7 @@ const Register = () => {
                 }
 
                 // Create user in the Database 
-                fetch('http://localhost:5000/users', {
+                fetch('https://blood-base-server.vercel.app/users', {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json'

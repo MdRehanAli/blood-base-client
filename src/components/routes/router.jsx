@@ -23,12 +23,12 @@ const router = createBrowserRouter([
             },
             {
                 path: '/upcoming-events',
-                loader: () => fetch('http://localhost:5000/events'),
+                loader: () => fetch('https://blood-base-server.vercel.app/events'),
                 Component: UpcomingEvents
             },
             {
                 path: '/event-details/:id',
-                loader: ({params}) => fetch(`http://localhost:5000/events/${params.id}`),
+                loader: ({ params }) => fetch(`https://blood-base-server.vercel.app/events/${params.id}`),
                 Component: EventDetails
             },
             {

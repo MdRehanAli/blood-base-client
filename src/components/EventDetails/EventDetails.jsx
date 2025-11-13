@@ -39,7 +39,7 @@ const EventDetails = () => {
             joinedAt: new Date().toISOString(),
         };
 
-        fetch("http://localhost:5000/join-event", {
+        fetch("https://blood-base-server.vercel.app/join-event", {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

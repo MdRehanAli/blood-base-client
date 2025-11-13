@@ -16,7 +16,7 @@ const ManageEvents = () => {
     // Fetch events created by the logged-in user
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/join-event?createdBy=${user.email}`)
+            fetch(`https://blood-base-server.vercel.app/join-event?createdBy=${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setMyEvents(data);
@@ -49,7 +49,7 @@ const ManageEvents = () => {
             eventDate: eventDate
         };
 
-        fetch(`http://localhost:5000/join-event/${editingEvent._id}`, {
+        fetch(`https://blood-base-server.vercel.app/join-event/${editingEvent._id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedEvent),
@@ -64,7 +64,7 @@ const ManageEvents = () => {
                 });
                 setEditingEvent(null);
                 // Refresh events
-                fetch(`http://localhost:5000/join-event?createdBy=${user.email}`)
+                fetch(`https://blood-base-server.vercel.app/join-event?createdBy=${user.email}`)
                     .then(res => res.json())
                     .then(data => setMyEvents(data));
             });
@@ -81,7 +81,7 @@ const ManageEvents = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/join-event/${id}`, {
+                fetch(`https://blood-base-server.vercel.app/join-event/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())

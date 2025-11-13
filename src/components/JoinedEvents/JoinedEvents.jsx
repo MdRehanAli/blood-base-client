@@ -9,7 +9,7 @@ const JoinedEvents = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/join-event?email=${user.email}`)
+            fetch(`https://blood-base-server.vercel.app/join-event?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     // Sort by event date
