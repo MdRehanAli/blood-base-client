@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
 
-    const { createUser } = use(AuthContext)
+    const { createUser, updateUser, setUser } = use(AuthContext)
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -46,6 +46,16 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+
+                updateUser({ displayName: name, photoURL: photo })
+                    .then(() => {
+                        setUser({ ...user, displayName: name, photoURL: photo });
+                        navigate(location.state || '/');
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setUser(user);
+                    });
 
                 const newUser = {
                     name: name,
