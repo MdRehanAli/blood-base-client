@@ -20,6 +20,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/upcoming-events',
+                loader: () => fetch('http://localhost:5000/events'),
                 Component: UpcomingEvents
             },
             {

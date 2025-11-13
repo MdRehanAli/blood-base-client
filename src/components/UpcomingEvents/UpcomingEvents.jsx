@@ -1,9 +1,20 @@
 import React from 'react';
+import { useLoaderData } from 'react-router';
+import Event from './Event';
 
 const UpcomingEvents = () => {
+
+    const events = useLoaderData();
+
+    console.log(events);
+
     return (
         <div>
-            <h1>Upcoming Events</h1>
+            <div>
+                {
+                    events.map(event => <Event event={event} key={event._id}></Event>)
+                }
+            </div>
         </div>
     );
 };
