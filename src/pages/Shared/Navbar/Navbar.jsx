@@ -7,6 +7,10 @@ import { toast } from 'react-toastify';
 import { GoTriangleDown } from 'react-icons/go';
 import './Navbar.css'
 import ThemeToggle from '../../../components/ThemeToggle/ThemeToggle';
+import { IoCalendarOutline, IoCreateOutline, IoHomeOutline } from 'react-icons/io5';
+import { TiHomeOutline } from 'react-icons/ti';
+import { LuCalendarCog } from 'react-icons/lu';
+import { FiUserPlus } from 'react-icons/fi';
 
 const Navbar = () => {
 
@@ -30,13 +34,13 @@ const Navbar = () => {
     }
 
     const links = <>
-        <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/upcoming-events'>Upcoming Events</NavLink></li>
+        <li><NavLink to='/'><TiHomeOutline /><span>Home</span></NavLink></li>
+        <li><NavLink to='/upcoming-events'><IoCalendarOutline />Upcoming Events</NavLink></li>
     </>
     const privateLinks = <>
-        <li><NavLink to='/create-event'>Create Event</NavLink></li>
-        <li><NavLink to='/manage-events'>Manage Events</NavLink></li>
-        <li><NavLink to='/joined-events'>Joined Events</NavLink></li>
+        <li><NavLink to='/create-event'><IoCreateOutline />Create Event</NavLink></li>
+        <li><NavLink to='/manage-events'><LuCalendarCog />Manage Events</NavLink></li>
+        <li><NavLink to='/joined-events'><FiUserPlus />Joined Events</NavLink></li>
     </>
 
     return (
