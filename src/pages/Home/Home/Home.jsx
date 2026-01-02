@@ -6,11 +6,11 @@ import Newsletter from '../Newsletter/Newsletter';
 
 const Home = () => {
     return (
-        <div className='max-w-7xl mx-auto w-11/12'>
+        <div className=''>
             <section className='mb-20 mt-5 lg:mt-10'>
                 <Banner></Banner>
             </section>
-            <main className='mb-20 mt-5 lg:mt-10'>
+            <main className='mb-20 lg:mt-10 max-w-7xl mx-auto w-11/12'>
                 <Features></Features>
                 <Gallery></Gallery>
                 <Newsletter></Newsletter>
