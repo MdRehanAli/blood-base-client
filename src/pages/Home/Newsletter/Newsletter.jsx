@@ -1,5 +1,5 @@
 import React from 'react';
-import newsletterImage from '../../assets/newsletterImage.png'
+import newsletterImage from '../../../assets/newsletterImage.png'
 import Swal from 'sweetalert2';
 
 const Newsletter = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/BloodBase.png'
+import logo from '../../../assets/BloodBase.png'
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { SiPiapro } from 'react-icons/si';
 const Footer = () => {

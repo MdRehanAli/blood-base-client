@@ -1,7 +1,7 @@
 import React from 'react';
-import feature1 from '../../assets/Create.png'
-import feature2 from '../../assets/Manage.png'
-import feature3 from '../../assets/heart.png'
+import feature1 from '../../../assets/Create.png'
+import feature2 from '../../../assets/Manage.png'
+import feature3 from '../../../assets/heart.png'
 
 const Features = () => {
     return (

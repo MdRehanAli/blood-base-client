@@ -1,12 +1,12 @@
 import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
-import logo from "../../assets/BloodBase.png";
-import { AuthContext } from '../../contexts/AuthContext';
+import logo from "../../../assets/BloodBase.png";
+import { AuthContext } from '../../../contexts/AuthContext';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import { GoTriangleDown } from 'react-icons/go';
 import './Navbar.css'
-import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import ThemeToggle from '../../../components/ThemeToggle/ThemeToggle';
 
 const Navbar = () => {
 
@@ -67,7 +67,7 @@ const Navbar = () => {
 
                             <div className="dropdown dropdown-end mr-2">
                                 <div tabIndex={0} role="button" className="flex items-end justify-center">
-                                    <img className='rounded-full max-w-[40px] mr-1' src={user?.photoURL} alt="User Image" />
+                                    <img className='rounded-full max-w-10 mr-1' src={user?.photoURL} alt="User Image" />
                                     <p className='text-3xl'><GoTriangleDown /></p>
                                 </div>
                                 <ul

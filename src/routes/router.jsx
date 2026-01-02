@@ -1,15 +1,16 @@
 import { createBrowserRouter } from "react-router";
-import RootLayout from "../../layouts/RootLayout";
-import Home from "../Home/Home";
-import UpcomingEvents from "../UpcomingEvents/UpcomingEvents";
-import Login from "../Login/Login";
-import Register from "../../Register/Register";
+import RootLayout from "../layouts/RootLayout";
+import Home from "../pages/Home/Home/Home";
+import UpcomingEvents from "../pages/UpcomingEvents/UpcomingEvents";
+import EventDetails from "../pages/EventDetails/EventDetails";
+import Login from "../pages/Auth/Login/Login";
+import Register from "../pages/Auth/Register/Register";
 import PrivateRoute from "./PrivateRoute";
-import CreateEvent from "../CreateEvent/CreateEvent";
-import ManageEvents from "../ManageEvents/ManageEvents";
-import JoinedEvents from "../JoinedEvents/JoinedEvents";
-import EventDetails from "../EventDetails/EventDetails";
-import Loading from "../Loading/Loading";
+import CreateEvent from "../pages/CreateEvent/CreateEvent";
+import ManageEvents from "../pages/ManageEvents/ManageEvents";
+import JoinedEvents from "../pages/JoinedEvents/JoinedEvents";
+import Loading from "../components/Loading/Loading";
+
 
 const router = createBrowserRouter([
     {

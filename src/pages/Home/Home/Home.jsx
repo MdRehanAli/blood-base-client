@@ -1,5 +1,5 @@
 import React from 'react';
-import Banner from '../Banner/Banner';
+import Banner from '../../Banner/Banner';
 import Features from '../Features/Features';
 import Gallery from '../Gallery/Gallery';
 import Newsletter from '../Newsletter/Newsletter';
