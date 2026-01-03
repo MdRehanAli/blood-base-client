@@ -65,14 +65,13 @@ const CreateEvent = () => {
     return (
         <div className='max-w-7xl mx-auto w-11/12 my-20'>
 
-            <div className="max-w-lg mx-auto bg-white p-8 rounded-2xl shadow-lg mt-8 text-black">
+            <div className="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg mt-8 text-black">
                 <h2 className="text-center text-2xl md:text-5xl font-bold text-red-600 mb-6">Create New Event</h2>
                 <form onSubmit={handleCreateEvent} className="space-y-4">
                     {/* Title */}
                     <input type="text" name='title' placeholder="Event Title" className="w-full border p-2 border-primary rounded" required />
 
                     {/* Description  */}
-                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" className="w-full border p-2 border-primary rounded" rows="3" required />
 
                     {/* Event Type  */}
                     <select value={select} onChange={(e) => setSelect(e.target.value)} className="w-full border p-2 border-primary rounded">
