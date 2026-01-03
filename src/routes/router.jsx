@@ -10,6 +10,8 @@ import CreateEvent from "../pages/CreateEvent/CreateEvent";
 import ManageEvents from "../pages/ManageEvents/ManageEvents";
 import JoinedEvents from "../pages/JoinedEvents/JoinedEvents";
 import Loading from "../components/Loading/Loading";
+import DashboardLayout from "../layouts/DashboardLayout";
+import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
 
 
 const router = createBrowserRouter([
@@ -52,6 +54,18 @@ const router = createBrowserRouter([
                 path: '/joined-events',
                 element: <PrivateRoute><JoinedEvents></JoinedEvents></PrivateRoute>
             },
+        ]
+    },
+    {
+        path: 'dashboard',
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        hydrateFallbackElement: <Loading></Loading>,
+        children: [
+            {
+                index: true,
+                Component: DashboardHome
+            },
+            
         ]
     }
 ]);
