@@ -9,7 +9,7 @@ const Features = () => {
             <h1 className='text-center text-3xl md:text-5xl font-bold text-red-600'>Features</h1>
             <p className='my-3 text-red-400 text-center'>Discover key features of our website</p>
 
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-8'>
                 <div className='border border-red-100 shadow-xs p-10 rounded-2xl hover:scale-105 hover:bg-red-100 transform duration-200'>
                     <img className='mx-auto ' src={feature1} alt="Create Event" />
                     <h1 className='font-bold text-xl md:text-3xl text-center mt-10 mb-5'>Create Event</h1>
