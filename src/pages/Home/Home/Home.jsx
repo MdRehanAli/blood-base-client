@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import About from '../../AboutUs/About/About';
 import Organization from '../../AboutUs/Organization/Organization';
 import Testimonials from '../Testimonials/Testimonials';
+import Campaigns from '../Campaigns/Campaigns';
 
 const Home = () => {
     return (
@@ -22,6 +23,7 @@ const Home = () => {
                 <About></About>
                 <Organization></Organization>
                 <Testimonials></Testimonials>
+                <Campaigns></Campaigns>
                 <Gallery></Gallery>
                 <Newsletter></Newsletter>
             </main>
