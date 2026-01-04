@@ -1,92 +1,83 @@
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
-import { AuthContext } from '../../../contexts/AuthContext';
+import useAuth from '../../../hooks/useAuth';
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../../hooks/axiosSecure';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Helmet } from 'react-helmet-async';
 
 const Register = () => {
-
-    const { createUser, updateUser, setUser } = use(AuthContext)
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { createUser, updateUser } = useAuth()
 
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
     const [showPassword, setShowPassword] = useState(false)
-
     const handleShowPassword = (event) => {
         event.preventDefault();
         setShowPassword(!showPassword);
     }
 
-    const handleRegister = (event) => {
-        event.preventDefault();
-        const form = event.target;
-        const name = form.name.value;
-        if (name.length < 5) {
-            toast.error("Name should be more then 5 character");
-            return;
-        }
-        const email = form.email.value;
-        const photo = form.photo.value;
-        const password = form.password.value;
+    const handleRegister = (data) => {
+        const profileImage = data.photo[0];
 
-        // Validate Password 
-        const validatePassword = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+        createUser(data.email, data.password)
+            .then(() => {
+                console.log(data);
 
-        //  Check if password matches
-        if (!validatePassword.test(password)) {
-            toast.error("Opps! Password must be at least 6 characters long, include at least one uppercase letter, one lowercase letter");
-            return
-        }
+                const formdata = new FormData();
+                formdata.append('image', profileImage);
 
-        console.log(name, email, photo, password);
+                const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
 
-        createUser(email, password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
+                axios.post(image_API_URL, formdata)
+                    .then(res => {
 
-                updateUser({ displayName: name, photoURL: photo })
-                    .then(() => {
-                        setUser({ ...user, displayName: name, photoURL: photo });
-                        navigate(location.state || '/');
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        setUser(user);
-                    });
+                        const photoURL = res.data.data.url;
 
-                const newUser = {
-                    name: name,
-                    email: email,
-                    photo: photo,
-                }
+                        // Create user in the database 
+                        const userInfo = {
+                            email: data.email,
+                            displayName: data.name,
+                            photoURL: photoURL,
+                            role: data.role
+                        }
+                        axiosSecure.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log("User created in the database.")
+                                }
+                            })
 
-                // Create user in the Database 
-                fetch('https://blood-base-server.vercel.app/users', {
-                    method: "POST",
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(newUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log("After Saving", data)
+                        const usersProfile = {
+                            displayName: data.name,
+                            photoURL: photoURL,
+                        }
+
+                        updateUser(usersProfile)
+                            .then(() => {
+                                // console.log("User Profile Updated.");
+
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "success",
+                                    iconColor: "#E53E3E",
+                                    title: "Login Successfully",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                navigate(location?.state || "/")
+                            })
+                            .catch(error => {
+                                toast.error(error.message);
+                            })
                     })
 
-                navigate(location.state || '/');
-
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Login Successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-
-                form.reset();
             })
             .catch(error => {
                 toast.error(error.message);
@@ -95,36 +86,57 @@ const Register = () => {
     }
 
     return (
-        <div className="hero min-h-screen">
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <h1 className="text-5xl font-bold text-center text-primary mt-2 mb-5">Register now!</h1>
-                <div className="card-body">
-                    <form onSubmit={handleRegister}>
-                        <fieldset className="fieldset">
-                            {/* name  */}
-                            <label className="label">Name</label>
-                            <input type="text" name='name' className="input w-full" required placeholder="Name" />
+        <div className="card bg-base-100 w-full max-w-sm mx-auto my-20 shrink-0 shadow-2xl">
+            <Helmet>
+                <title>Blood Base | Registration</title>
+            </Helmet>
+            <div className="card-body">
+                <h1 className='text-center text-2xl md:text-3xl font-bold text-primary mb-3'>Register to Blood Base!</h1>
+                <form onSubmit={handleSubmit(handleRegister)}>
+                    <fieldset className="fieldset">
 
-                            {/* email  */}
-                            <label className="label">Email</label>
-                            <input type="email" name='email' className="input w-full" required placeholder="Email" />
+                        {/* Name Field  */}
+                        <label className="label">Name</label>
+                        <input type="text" {...register('name', { required: true, minLength: 3 })} className="input w-full" placeholder="Name" />
+                        {errors.name?.type === "required" && <p className='text-red-500'>Name is Required</p>}
+                        {errors.name?.type === "minLength" && <p className='text-red-500'>Name must have at least 3 Character</p>}
 
-                            {/* photo  */}
-                            <label className="label">Photo</label>
-                            <input type="text" name='photo' className="input w-full" required placeholder="Photo" />
+                        {/* Email Field  */}
+                        <label className="label">Email</label>
+                        <input type="email" {...register('email', { required: true })} className="input w-full" placeholder="Email" />
+                        {errors.email?.type === "required" && <p className='text-red-500'>Email is Required</p>}
 
-                            {/* password  */}
-                            <label className="label">Password</label>
-                            <div className='flex items-center relative'>
-                                <input type={showPassword ? "text" : "password"} name='password' className="input w-full" required placeholder="Password" />
-                                <button onClick={handleShowPassword} className='absolute top-2 right-5 text-2xl text-primary'>{showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</button>
-                            </div>
+                        {/* Photo Field  */}
+                        <label className="label">Photo</label>
+                        <input type="file" {...register('photo', { required: true })} className="file-input w-full" placeholder="Photo" />
+                        {errors.photo?.type === "required" && <p className='text-red-500'>Photo is Required</p>}
 
-                            <button className="btn btn-primary mt-4">Register</button>
-                        </fieldset>
-                    </form>
-                    <p className='mt-2 text-center'>Already have an Account? Please <Link className='underline text-primary font-bold' to="/logIn">Login</Link> </p>
-                </div>
+                        {/* Role Field  */}
+                        <label className="label">Role</label>
+                        <select {...register('role', { required: true })} defaultValue="user" className="select w-full">
+                            <option disabled={true}>user</option>
+                            {/* <option value="donor">Donor</option> */}
+                            <option value="organizer">Organizer</option>
+                        </select>
+                        {errors.role?.type === "required" && <p className='text-red-500'>Role is Required</p>}
+
+                        {/* Password Field  */}
+                        <label className="label">Password</label>
+                        <div className='flex items-center relative'>
+                            <input type={showPassword ? "text" : "password"} {...register('password', {
+                                required: true, minLength: 6, pattern: /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/
+                            })} className="input w-full" placeholder="Password" />
+                            <button onClick={handleShowPassword} className='absolute top-2 right-7 text-xl text-primary'>{showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</button>
+                        </div>
+
+                        {errors.password?.type === "required" && <p className='text-red-500'>Password is Required</p>}
+                        {errors.password?.type === "minLength" && <p className='text-red-500'>Password must have at least 6 Character</p>}
+                        {errors.password?.type === "pattern" && <p className='text-red-500'>Password must have at least an Uppercase and a Lowercase Character</p>}
+
+                        <button className="btn btn-primary mt-4">Register</button>
+                    </fieldset>
+                    <p className='mt-2 text-center'>Already have an Account? Please <Link to='/login' state={location.state} className='font-bold underline text-red-500'>Login</Link></p>
+                </form>
             </div>
         </div>
     );

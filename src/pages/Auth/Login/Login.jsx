@@ -1,14 +1,17 @@
-import React, { use, useState } from 'react';
-import { FcGoogle } from 'react-icons/fc';
+import React, { useState } from 'react';
+import useAuth from '../../../hooks/useAuth';
+import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
-import { AuthContext } from '../../../contexts/AuthContext';
+import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import useAxiosSecure from '../../../hooks/axiosSecure';
 
 const Login = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const { signIn, googleSignIn, } = use(AuthContext);
+    const { signIn, googleSignIn, } = useAuth()
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -20,17 +23,11 @@ const Login = () => {
         setShowPassword(!showPassword);
     }
 
-    const handleLogin = (event) => {
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password);
-
-        signIn(email, password)
+    const handleLogin = (data) => {
+        console.log("After LogIn Data: ", data);
+        signIn(data.email, data.password)
             .then(result => {
-                const user = result.user;
-                console.log(user);
+                console.log(result.user);
 
                 Swal.fire({
                     position: "top-end",
@@ -40,12 +37,16 @@ const Login = () => {
                     timer: 1500
                 });
 
-                form.reset();
-                navigate(`${location.state ? location.state : "/"}`);
-
+                navigate(location?.state || '/')
             })
-            .catch(error => {
-                toast.error(error.message);
+            .catch(() => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Invalid Email & Password",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             })
 
     }
@@ -54,35 +55,30 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 console.log(result.user);
+                const newRole = 'user';
 
-                const newUser = {
-                    name: result.user.displayName,
+                const userInfo = {
                     email: result.user.email,
-                    photo: result.user.photoURL,
+                    displayName: result.user.displayName,
+                    photoURL: result.user.photoURL,
+                    role: newRole
                 }
 
                 // Create user in the Database 
-                fetch('https://blood-base-server.vercel.app/users', {
-                    method: "POST",
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(newUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log("After Saving", data)
+                useAxiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        console.log("User data has been stored: ", res.data);
+
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            iconColor: "#E53E3E",
+                            title: "Google Login Successfully",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate(location?.state || '/')
                     })
-
-                navigate(location.state || '/')
-
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Login Successfully",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
 
             })
             .catch(error => {
@@ -95,27 +91,32 @@ const Login = () => {
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
                 <h1 className="text-5xl font-bold text-center text-primary mt-2 mb-5">Login now!</h1>
                 <div className="card-body">
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={handleSubmit(handleLogin)}>
                         <fieldset className="fieldset">
-                            {/* email  */}
+                            {/* Email Field  */}
                             <label className="label">Email</label>
-                            <input type="email" name='email' className="input w-full" required placeholder="Email" />
+                            <input type="email" {...register('email', { required: true })} className="input" placeholder="Email" />
+                            {errors.email?.type === "required" && <p className='text-red-500'>Email is Required</p>}
 
-                            {/* password  */}
+                            {/* Password Field  */}
                             <label className="label">Password</label>
                             <div className='flex items-center relative'>
-                                <input type={showPassword ? "text" : "password"} name='password' className="input w-full" required placeholder="Password" />
-                                <button onClick={handleShowPassword} className='absolute top-2 right-5 text-2xl text-primary'>{showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</button>
+                                <input type={showPassword ? "text" : "password"} {...register('password', {
+                                    required: true, minLength: 6
+                                })} className="input" placeholder="Password" />
+                                <button onClick={handleShowPassword} className='absolute top-2 right-7 text-xl text-primary'>{showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}</button>
                             </div>
 
-                            <div><a className="link link-hover">Forgot password?</a></div>
+                            {errors.password?.type === "required" && <p className='text-red-500'>Password is Required</p>}
+                            {errors.password?.type === "minLength" && <p className='text-red-500'>Password must have at least 6 Character</p>}
 
+                            <div><a className="link link-hover">Forgot password?</a></div>
                             <button className="btn btn-primary mt-4">Login</button>
                         </fieldset>
                     </form>
                     <button onClick={handleGoogleSignIn} className='btn btn-outline w-full hover:text-white hover:btn-primary'><FcGoogle className='text-2xl'></FcGoogle> Login with Google</button>
 
-                    <p className='mt-2 text-center'>New to our Website? Please <Link className='underline text-primary font-bold' to="/register">Register</Link> </p>
+                    <p className='mt-2 text-center'>New to our Website? Please <Link state={location.state} className='underline text-primary font-bold' to="/register">Register</Link> </p>
                 </div>
             </div>
         </div>

@@ -12,9 +12,9 @@ import JoinedEvents from "../pages/JoinedEvents/JoinedEvents";
 import Loading from "../components/Loading/Loading";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
-import About from "../pages/AboutUs/About/About";
-import Contact from "../pages/Contact/Contact";
-import Blog from "../pages/Blog/Blog";
+import Contact from "../pages/Contact/Contact/Contact";
+import Blog from "../pages/Blog/Blog/Blog";
+import AboutUs from "../pages/AboutUs/AboutUS/AboutUs";
 
 
 const router = createBrowserRouter([
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/about-us',
-                Component: About
+                Component: AboutUs
             },
             {
                 path: '/contact',
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
                 index: true,
                 Component: DashboardHome
             },
-            
+
         ]
     }
 ]);

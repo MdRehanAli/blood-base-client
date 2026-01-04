@@ -26,6 +26,7 @@ const Navbar = () => {
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
+                    iconColor: "#E53E3E",
                     title: "Log Out Successfully",
                     showConfirmButton: false,
                     timer: 1500
