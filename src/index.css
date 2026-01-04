@@ -14,7 +14,7 @@
 }
 
 .btn-primary {
-  @apply bg-gradient-to-r from-[#9b0000] to-[#ff0000] border-none text-white
+  @apply bg-gradient-to-r from-[#b40000] via-[#cf0000] to-[#e90000] border-none text-white
 }
 
 .btn-primary:hover {

@@ -9,11 +9,11 @@ const Stats = () => {
     ];
     return (
         <section className="my-20">
-            <h1 className='text-center text-3xl md:text-5xl font-bold text-red-600'>Gallery</h1>
-            <p className='my-3 text-red-400 text-center'>Explore recent blood donation events</p>
+            <h1 className='text-center text-3xl md:text-5xl font-bold text-red-600'>Stats</h1>
+            <p className='my-3 text-red-400 text-center'>All of our staff play crucial role</p> 
 
-            <div className="bg-primary text-white pt-8">
-                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="bg-primary text-white py-16 mt-8">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                     {stats.map((stat, index) => (
                         <div key={index}>
                             <h2 className="text-4xl font-bold">{stat.value}</h2>
