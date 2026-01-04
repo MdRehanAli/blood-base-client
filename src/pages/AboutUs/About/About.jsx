@@ -7,7 +7,7 @@ const About = () => {
         <section className='my-20'>
             <h1 className='text-center text-3xl md:text-5xl font-bold text-red-600'>About</h1>
             <p className='my-3 text-red-400 text-center'>Explore our works with us</p>
-            <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center mt-8">
+            <div className="max-w-7xl w-11/12 mx-auto grid md:grid-cols-2 gap-10 items-center mt-8">
                 <div>
                     <h5 className="text-primary font-semibold mb-2">Who We Are?</h5>
                     <h1 className="text-4xl font-bold mb-4">
