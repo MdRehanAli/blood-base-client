@@ -11,7 +11,7 @@ const RootLayout = () => {
 
 
     return (
-        <div>
+        <div className=''>
             <Navbar></Navbar>
             {
                 navigation?.state == 'loading' ?
