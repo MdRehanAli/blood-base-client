@@ -12,6 +12,9 @@ import JoinedEvents from "../pages/JoinedEvents/JoinedEvents";
 import Loading from "../components/Loading/Loading";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import About from "../pages/AboutUs/About/About";
+import Contact from "../pages/Contact/Contact";
+import Blog from "../pages/Blog/Blog";
 
 
 const router = createBrowserRouter([
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
                 path: '/event-details/:id',
                 loader: ({ params }) => fetch(`https://blood-base-server.vercel.app/events/${params.id}`),
                 Component: EventDetails
+            },
+            {
+                path: '/about-us',
+                Component: About
+            },
+            {
+                path: '/contact',
+                Component: Contact
+            },
+            {
+                path: '/blogs',
+                Component: Blog
             },
             {
                 path: '/login',

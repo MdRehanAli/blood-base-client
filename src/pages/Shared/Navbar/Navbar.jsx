@@ -11,6 +11,10 @@ import { IoCalendarOutline, IoCreateOutline, IoHomeOutline } from 'react-icons/i
 import { TiHomeOutline } from 'react-icons/ti';
 import { LuCalendarCog } from 'react-icons/lu';
 import { FiUserPlus } from 'react-icons/fi';
+import { MdOutlineDashboard } from "react-icons/md";
+import { CiSquareInfo } from "react-icons/ci";
+import { RiContactsLine } from "react-icons/ri";
+import { LuClipboardPenLine } from "react-icons/lu";
 
 const Navbar = () => {
 
@@ -36,6 +40,14 @@ const Navbar = () => {
     const links = <>
         <li><NavLink to='/'><TiHomeOutline /><span>Home</span></NavLink></li>
         <li><NavLink to='/upcoming-events'><IoCalendarOutline />Upcoming Events</NavLink></li>
+        <li><NavLink to='/about-us'><CiSquareInfo />About US</NavLink></li>
+        <li><NavLink to='/contact'><RiContactsLine />Contact</NavLink></li>
+        <li><NavLink to='/blogs'><LuClipboardPenLine />Blogs</NavLink></li>
+        {
+            user && <>
+                <li><NavLink to='/dashboard'><MdOutlineDashboard />Dashboard</NavLink></li>
+            </>
+        }
     </>
     const privateLinks = <>
         <li><NavLink to='/create-event'><IoCreateOutline />Create Event</NavLink></li>
