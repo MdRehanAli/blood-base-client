@@ -5,6 +5,8 @@ import Gallery from '../Gallery/Gallery';
 import Newsletter from '../Newsletter/Newsletter';
 import { Helmet } from 'react-helmet-async';
 import About from '../../AboutUs/About/About';
+import Organization from '../../AboutUs/Organization/Organization';
+import Testimonials from '../Testimonials/Testimonials';
 
 const Home = () => {
     return (
@@ -18,6 +20,8 @@ const Home = () => {
             <main className='mb-20 lg:mt-10 max-w-7xl mx-auto w-11/12'>
                 <Features></Features>
                 <About></About>
+                <Organization></Organization>
+                <Testimonials></Testimonials>
                 <Gallery></Gallery>
                 <Newsletter></Newsletter>
             </main>
