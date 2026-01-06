@@ -8,6 +8,7 @@ import About from '../../AboutUs/About/About';
 import Organization from '../../AboutUs/Organization/Organization';
 import Testimonials from '../Testimonials/Testimonials';
 import Campaigns from '../Campaigns/Campaigns';
+import BecomeADonor from '../BecomeADonor/BecomeADonor';
 
 const Home = () => {
     return (
@@ -24,6 +25,7 @@ const Home = () => {
                 <Organization></Organization>
                 <Testimonials></Testimonials>
                 <Campaigns></Campaigns>
+                <BecomeADonor></BecomeADonor>
                 <Gallery></Gallery>
                 <Newsletter></Newsletter>
             </main>

@@ -6,7 +6,9 @@ import img4 from '../../../assets/event4.png'
 import { Link } from 'react-router';
 
 const Campaigns = () => {
-    const imgs = [img1, img2, img3, img4]
+    
+    const imgs = [img1, img2, img3, img4];
+
     return (
         <section className="">
             <h1 className='text-center text-3xl md:text-5xl font-bold text-red-600'>Popular Campaigns</h1>
