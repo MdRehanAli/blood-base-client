@@ -14,7 +14,7 @@ const Testimonials = () => {
                     <div className='flex justify-center mb-2'>
                         <img src={alex} alt="" className='w-28 rounded-full' />
                     </div>
-                    <h4 className="font-semibold">John Alexis</h4>
+                    <h4 className="font-semibold">Alan Sheer</h4>
                 </div>
             </div>
         </section>

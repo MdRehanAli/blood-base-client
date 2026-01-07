@@ -12,7 +12,7 @@ import BecomeADonor from '../BecomeADonor/BecomeADonor';
 
 const Home = () => {
     return (
-        <div className=''>
+        <div>
             <Helmet>
                 <title>Blood Base | Home</title>
             </Helmet>
