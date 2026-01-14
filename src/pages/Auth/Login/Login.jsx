@@ -11,7 +11,7 @@ import { MdOutlineAdminPanelSettings } from 'react-icons/md';
 import { GrUserSettings } from 'react-icons/gr';
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
     const { signIn, googleSignIn, } = useAuth()
 
@@ -22,16 +22,16 @@ const Login = () => {
 
     const demoCredentials = {
         admin: {
-            email: "gtracker@gmail.com",
-            password: "Gtracker"
+            email: "bloodbase@gmail.com",
+            password: "BloodBase"
         },
         organizer: {
             email: "organizer@gmail.com",
             password: "Organizer"
         },
         user: {
-            email: "user@gmail.com",
-            password: "User123"
+            email: "blooddonor@gmail.com",
+            password: "BloodDonor"
         }
     };
 
