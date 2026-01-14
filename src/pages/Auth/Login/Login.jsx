@@ -20,6 +20,32 @@ const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false)
 
+    const demoCredentials = {
+        admin: {
+            email: "gtracker@gmail.com",
+            password: "Gtracker"
+        },
+        organizer: {
+            email: "organizer@gmail.com",
+            password: "Organizer"
+        },
+        user: {
+            email: "user@gmail.com",
+            password: "User123"
+        }
+    };
+
+    const handleDemoLogin = (role) => {
+        const credential = demoCredentials[role];
+
+        // Auto fill form
+        setValue("email", credential.email);
+        setValue("password", credential.password);
+
+        // Auto submit
+        handleLogin(credential);
+    };
+
     const handleShowPassword = (event) => {
         event.preventDefault();
         setShowPassword(!showPassword);
@@ -121,27 +147,27 @@ const Login = () => {
                     <p className='mt-2 text-center'>New to our Website? Please <Link state={location.state} className='underline text-primary font-bold' to="/register">Register</Link> </p>
 
                     <div>
-                    <p className="text-primary text-[11px] font-bold mb-4 uppercase tracking-[0.25em] text-center opacity-60">Demo Quick Access</p>
-                    {/* Fill Admin credentials  */}
-                    <div className="grid grid-cols-3 gap-3">
-                        <button onClick={() => handleDemoLogin("admin")} className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg border border-border-dark hover:border-primary/60 hover:bg-primary/10 transition-all group">
-                            <div className='text-primary group-hover:scale-110 transition-transform text-2xl'><MdOutlineAdminPanelSettings className='' /></div>
-                            <span className="text-slate-300 text-[10px] font-bold tracking-wider">ADMIN</span>
-                        </button>
+                        <p className="text-primary text-[11px] font-bold mb-4 uppercase tracking-[0.25em] text-center opacity-60">Demo Quick Access</p>
+                        {/* Fill Admin credentials  */}
+                        <div className="grid grid-cols-3 gap-3">
+                            <button onClick={() => handleDemoLogin("admin")} className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg border border-border-dark hover:border-primary/60 hover:bg-primary/10 transition-all group">
+                                <div className='text-primary group-hover:scale-110 transition-transform text-2xl'><MdOutlineAdminPanelSettings className='' /></div>
+                                <span className="text-slate-300 text-[10px] font-bold tracking-wider">ADMIN</span>
+                            </button>
 
-                        {/* Fill Manager Credential  */}
-                        <button onClick={() => handleDemoLogin("manager")} className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg border border-border-dark hover:border-primary/60 hover:bg-primary/10 transition-all group">
-                            <div className='text-primary group-hover:scale-110 transition-transform text-2xl'><GrUserSettings className='' /></div>
-                            <span className="text-slate-300 text-[10px] font-bold tracking-wider">MANAGER</span>
-                        </button>
+                            {/* Fill Organizer Credential  */}
+                            <button onClick={() => handleDemoLogin("organizer")} className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg border border-border-dark hover:border-primary/60 hover:bg-primary/10 transition-all group">
+                                <div className='text-primary group-hover:scale-110 transition-transform text-2xl'><GrUserSettings className='' /></div>
+                                <span className="text-slate-300 text-[10px] font-bold tracking-wider">ORGANIZER</span>
+                            </button>
 
-                        {/* Fill User Credential  */}
-                        <button onClick={() => handleDemoLogin("user")} className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg border border-border-dark hover:border-primary/60 hover:bg-primary/10 transition-all group">
-                            <div className='text-primary group-hover:scale-110 transition-transform text-2xl'><FaRegUser className='' /></div>
-                            <span className="text-slate-300 text-[10px] font-bold tracking-wider">USER</span>
-                        </button>
+                            {/* Fill User Credential  */}
+                            <button onClick={() => handleDemoLogin("user")} className="flex flex-col items-center justify-center gap-2 p-3 rounded-lg border border-border-dark hover:border-primary/60 hover:bg-primary/10 transition-all group">
+                                <div className='text-primary group-hover:scale-110 transition-transform text-2xl'><FaRegUser className='' /></div>
+                                <span className="text-slate-300 text-[10px] font-bold tracking-wider">USER</span>
+                            </button>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
