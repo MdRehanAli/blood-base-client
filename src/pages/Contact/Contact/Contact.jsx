@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 
 const Contact = () => {
     return (
-        <div className='mt-10'>
+        <div>
             <Helmet>
                 <title>Blood Base | Contact</title>
             </Helmet>

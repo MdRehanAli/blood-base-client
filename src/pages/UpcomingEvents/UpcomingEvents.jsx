@@ -10,7 +10,7 @@ const UpcomingEvents = () => {
     console.log(events);
 
     return (
-        <div className='mt-10'>
+        <div>
             <EventBanner></EventBanner>
             <div className='max-w-7xl mx-auto w-11/12 my-10 md:my-20'>
                 <h1 className='text-center text-3xl md:text-5xl font-bold text-red-600'>Upcoming Events</h1>

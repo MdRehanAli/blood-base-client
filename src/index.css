@@ -13,6 +13,12 @@
   --color-secondary: teal;
 }
 
+@plugin "daisyui/theme" {
+  name: "dark";
+  --color-primary: red;
+  --color-secondary: teal;
+}
+
 .btn-primary {
   @apply bg-gradient-to-r from-[#b40000] via-[#cf0000] to-[#e90000] border-none text-white
 }

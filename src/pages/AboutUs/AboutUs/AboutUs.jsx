@@ -8,7 +8,7 @@ import Organization from '../Organization/Organization';
 
 const AboutUs = () => {
     return (
-        <div className='mt-10'>
+        <div>
             <Helmet>
                 <title>Blood Base | About US</title>
             </Helmet>

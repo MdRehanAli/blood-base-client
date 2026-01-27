@@ -16,7 +16,7 @@ const Home = () => {
             <Helmet>
                 <title>Blood Base | Home</title>
             </Helmet>
-            <section className='mb-20 mt-5 lg:mt-10'>
+            <section className='mb-20'>
                 <Banner></Banner>
             </section>
             <main className='mb-20 lg:mt-10 max-w-7xl mx-auto w-11/12'>
